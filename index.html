@@ -11,46 +11,56 @@
         <div id="logo">
             <img src="image/logo.png" alt="로고">
         </div>
-        <div id="searchbox">
-            <img src="image/icon-search.png" >
-            <input id="search-input" class="input" placeholder="역 이름을 검색하세요">
-            <img src="image/icon-x.png" alt="취소버튼">
+        <div id="searchboxContainer">
+            <img id="iconSearch" src="image/icon-search.png" >
+            <input id="searchInput" class="input" placeholder="역 이름을 검색하세요" type="text">
+            <img id="btnCancel" src="image/icon-x.png" alt="취소버튼">
         </div>    
         <div id="menu">
             <img src="image/icon-menu.png" alt="메뉴버튼" >
         </div>
     </div>   
     <div id="main">
+        <div id="Heading">                
+            <div class="mainHeading">기차로 떠나는 숨겨진 국내 여행지의 매력을 <br>만나보세요</div>
+            <div class="subHeading">지도 위의 지역에 마우스를 올리면 해당 지역과 연결된 철도 노선을 확인할 수 있습니다</div>
+        </div>
         <div id="mapContainer">
-            <div>기차로 떠나는 숨겨진 국내 여행지의 매력을 만나보세요</div>
-            <img src="image/map.png" alt="지도">
+            <img id="map" src="image/map.png" alt="지도">
         </div>
         <div id="mainStationContainer">
             <div id="mainStation">주요 역</div>
             <div class="stationContainer">
-                <ul id="stationSeoul" >
-                    <li>서울역</li>
-                    <li>경부선, 경전선, 강릉선, 중앙선</li>
+                <ul class="stationInfo" id="stationSeoul" >
+                    <li class="name">서울역</li>
+                    <li class="line">경부선</li>
+                    <li class="line">경전선</li>
+                    <li class="line">강릉선</li>
+                    <li class="line">중앙선</li>
                 </ul>
-                <ul id="stationYongsan" >
-                    <li>용산역</li>
-                    <li>호남선,전라선</li>
+                <ul  class="stationInfo" id="stationYongsan" >
+                    <li class="name">용산역</li>
+                    <li class="line">호남선</li>
+                    <li class="line">전라선</li>
                 </ul>
-                <ul id="stationSuwon" >
-                    <li>수원역</li>
-                    <li>경부선</li>
+                <ul class="stationInfo" id="stationSuwon" >
+                    <li class="name">수원역</li>
+                    <li class="line">경부선</li>
                 </ul>
-                <ul id="stationOsong" >
-                    <li>오송역</li>
-                    <li>경부선, 호남선, 경전선, 전라선</li>
+                <ul class="stationInfo" id="stationOsong" >
+                    <li class="name">오송역</li>
+                    <li class="line">경부선</li>
+                    <li class="line">호남선</li>
+                    <li class="line">경전선</li>
+                    <li class="line">전라선</li>
                 </ul>
-                <ul id="stationBusan" >
-                    <li>부산역</li>
-                    <li>경부선</li>
+                <ul class="stationInfo" id="stationBusan" >
+                    <li class="name">부산역</li>
+                    <li class="line">경부선</li>
                 </ul>
-                <ul id="stationGwangjusongjeong" >
-                    <li>광주송정역</li>
-                    <li>호남선</li>
+                <ul class="stationInfo" id="stationGwangjusongjeong" >
+                    <li class="name">광주송정역</li>
+                    <li class="line">호남선</li>
                 </ul>
             </div>
 
