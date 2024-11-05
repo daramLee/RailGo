@@ -12,11 +12,12 @@ body{
     display: flex;
     /* flex-basis: 120px; */
     width: 100%;
-    height: 90px;
-    margin-top: 8px;
-    margin-bottom: 60px;
+    height: 99px;
+    margin-bottom: 66px;
     justify-content: space-between; /*부모넓이 설정해줘야함*/
     position: fixed;
+    background-color: white;
+    opacity: 94%;
 }
 #logo > img{
     width: 184px;
@@ -113,4 +114,5 @@ body{
 }
 #footer{
     flex-basis: 40px;
+    color: #B3B3B3;
 }
