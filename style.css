@@ -12,72 +12,146 @@ body{
     display: flex;
     /* flex-basis: 120px; */
     width: 100%;
-    height: 99px;
+    height: 280px;
     margin-bottom: 66px;
     justify-content: space-between; /*부모넓이 설정해줘야함*/
     position: fixed;
     background-color: white;
     opacity: 94%;
+    z-index: 100;
 }
 #logo > img{
-    width: 184px;
-    height: 48px;
-    margin: 24px 25px;
+    width: 400px;
+    height: 100px;
+    margin: 90px 90px;
 }
 #searchboxContainer{
     display: flex;
     position: relative;
-    width: 860px;
-    margin-top: 19px;
+    width: 1500px;
+    height: 140px;
+    margin: 70px 48px;
 }
 #searchboxContainer > #searchInput{
     width: 100%; /*부모를 기준으로 100%가 됨*/
-    height: 60px;
-    padding-left: 48px;
-    border: 1px solid #d9d9d9; /* 테두리 속성은 한꺼번에 */
+    padding-left: 130px;
+    padding-top: 14px;
+    border: 4px solid #d9d9d9; /* 테두리 속성은 한꺼번에 */
     border-radius: 9999px;
+    font-size: 44px;
 }
 #iconSearch{
     position: absolute;
-    width: 18px;
-    top: 19px;
-    left: 16px;
+    width: 53px;
+    top: 42px;
+    left: 40px;
 }
 #btnCancel{
     position: absolute;
-    width: 13px;
-    top: 22px;
-    right: 23px; /*부모와 5px만큼 떨어져있게 함*/
+    width: 42px;
+    top: 48px;
+    right: 54px; /*부모와 5px만큼 떨어져있게 함*/
 }
 #menu > img{
-    width: 48px;
-    height: 40px;
-    margin: 26px 25px;
+    width: 100px;
+    height: 70px;
+    margin: 110px 80px;
 }
 #main{
     flex-basis: 1400px;
-    margin-top: 130px;
+    margin-top: 300px;
 }
 #Heading{
-    margin-left: 416px;
-    width: 1200px;
+    margin-left: 360px;
+    width: 1560px;
+    line-height: 1.5;
 }
 .mainHeading{
     color: #1e1e1e;
-    font-size: 50px;
+    font-size: 86px;
     margin-bottom: 30px;
 } 
 .subHeading{
-    font-size: 28px;
+    font-size: 40px;
     color: #757575;
 }
 #mapContainer{
+    position: relative;
     margin: 40px 0px;
     margin-left: 200px;
 } 
 #map{
     width: 1350px;
 }
+.mapPin{
+    position: absolute;
+    width: 310px;
+    opacity: 60%;
+    z-index: 2;
+}
+.mapPin:hover{
+    opacity: 100%;
+}
+#seoul{
+    left: 325px;
+    top: 220px;
+}
+#yongsan{
+    left: 340px;
+    top: 260px;
+}
+#suwon{
+    left: 380px;
+    top: 460px;
+}
+#osong{
+    left: 350px;
+    top: 660px;
+}
+#pusan{
+    left: 836.7px;
+    top: 1206px;
+}
+#gwangjusongjeong{
+    left: 200px;
+    top: 1180px;
+}
+.lineImg{
+    position: absolute;
+    width: 1140px;
+    height: 1340px;
+}
+#gyeongbuLine{
+    z-index: 6;
+    top: 160px;
+    left: 110px;
+}
+#gyeongjeonLine{
+    z-index: 5;
+    top: 160px;
+    left: 110px;
+}
+#honamLine{
+    z-index: 4;
+    top: 180px;
+    left: 110px;
+}
+#jeonraLine{
+    z-index: 3;
+    top: 166px;
+    left: 110px;
+}
+#gangneungLine{
+    z-index: 2;
+    top: 160px;
+    left: 110px;
+}
+#jungangLine{
+    z-index: 1;
+    top: 160px;
+    left: 110px;
+}
+
 #mainStationContainer{
     display: flex;
     flex-direction: column;
@@ -112,6 +186,25 @@ body{
     margin-bottom: 4px;
     color: #757575;
 }
+.gyeongbu{
+    color: #FF9843;
+}
+.gyeongjeon{
+    color: #FAEF9B;
+}
+.gangneung{
+    color: #83A4F7;
+}
+.honam{
+    color: #6DA4AA;
+}
+.jungang{
+     color: #3468C0;
+}
+.jeonra{
+     color: #F6D776;
+}
+
 #footer{
     flex-basis: 40px;
     color: #B3B3B3;
