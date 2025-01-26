@@ -1,7 +1,5 @@
-// 출발역 받고
-//travel_db에서 뒤적여서
-// 갈 수 있는 여행지 목록 출력
 import connection from "../database/travel_db.js";
+
 function getQueryResult(query, param){
     return new Promise ((resolve, reject) =>{connection.query(query, [param], function(err, result){
         if(err){
@@ -11,7 +9,6 @@ function getQueryResult(query, param){
         }
     })});
 }
-
 
 export async function fetchDestination(departure){
     let rawDestinationIds = [];
@@ -31,12 +28,9 @@ export async function fetchDestination(departure){
         let temp = await getQueryResult('select name from stations where id = ?', element);
         destinationNames.push(Object.values(...temp));
     }
+    connection.end();
     console.log(destinationNames.flat());
+    return destinationNames.flat();
 }
 
-async function main(){
-    await fetchDestination('경주'); //test, 본인(departure)도 destination인 결과에 포함되어 나옴.
-    connection.end();
-}
-main();
 

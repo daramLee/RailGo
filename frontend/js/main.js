@@ -1,4 +1,4 @@
-import {fetchStation} from './js/api.js'; //import는 최상단에.
+import {fetchStation} from './api.js'; //import는 최상단에.
 window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행할 수 있게 함.
 
     function createLineImg(mapContainer, data){
@@ -22,10 +22,10 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
         const mapContainer = document.getElementById('mapContainer');
 
         createLineImg(mapContainer, [
-            {id: 'gyeongbuLine', src: 'image/gyeongbu.png'},
-            {id: 'gyeongjeonLine', src: 'image/gyeongjeon.png'},
-            {id: 'gangneungLine', src: 'image/gangneung.png'},
-            {id: 'jungang', src: 'image/jungang.png'}
+            {id: 'gyeongbuLine', src: 'assets/image/gyeongbu.png'},
+            {id: 'gyeongjeonLine', src: 'assets/image/gyeongjeon.png'},
+            {id: 'gangneungLine', src: 'assets/image/gangneung.png'},
+            {id: 'jungang', src: 'assets/image/jungang.png'}
             ]);
     })
     document.getElementById('seoul').addEventListener('mouseout', (event) =>{
@@ -38,8 +38,8 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
         const mapContainer = document.getElementById('mapContainer');
 
         createLineImg(mapContainer, [
-            {id: 'honamLine', src: 'image/honam.png'},
-            {id: 'jeonraLine', src: 'image/jeonra.png'},
+            {id: 'honamLine', src: 'assets/image/honam.png'},
+            {id: 'jeonraLine', src: 'assets/image/jeonra.png'},
             ]);
     })
     document.getElementById('yongsan').addEventListener('mouseout', (event) =>{
@@ -53,7 +53,7 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
         const mapContainer = document.getElementById('mapContainer');
 
         createLineImg(mapContainer, [
-            {id: 'gyeongbuLine', src: 'image/gyeongbu.png'},
+            {id: 'gyeongbuLine', src: 'assets/image/gyeongbu.png'},
             ]);
     })
     document.getElementById('suwon').addEventListener('mouseout', (event) =>{
@@ -66,10 +66,10 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
         const mapContainer = document.getElementById('mapContainer');
 
         createLineImg(mapContainer, [
-            {id: 'gyeongbuLine', src: 'image/gyeongbu.png'},
-            {id: 'gyeongjeonLine', src: 'image/gyeongjeon.png'},
-            {id: 'honamLine', src: 'image/honam.png'},
-            {id: 'jeonraLine', src: 'image/jeonra.png'}
+            {id: 'gyeongbuLine', src: 'assets/image/gyeongbu.png'},
+            {id: 'gyeongjeonLine', src: 'assets/image/gyeongjeon.png'},
+            {id: 'honamLine', src: 'assets/image/honam.png'},
+            {id: 'jeonraLine', src: 'assets/image/jeonra.png'}
             ]);
     })
     document.getElementById('osong').addEventListener('mouseout', (event) =>{
@@ -84,7 +84,7 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
         const mapContainer = document.getElementById('mapContainer');
 
         createLineImg(mapContainer, [
-            {id: 'honamLine', src: 'image/honam.png'}
+            {id: 'honamLine', src: 'assets/image/honam.png'}
             ]);
     })
     document.getElementById('gwangjusongjeong').addEventListener('mouseout', (event) =>{
@@ -97,7 +97,7 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
         const mapContainer = document.getElementById('mapContainer');
 
         createLineImg(mapContainer, [
-            {id: 'gyeongbuLine', src: 'image/gyeongbu.png'}
+            {id: 'gyeongbuLine', src: 'assets/image/gyeongbu.png'}
             ]);
     })
     document.getElementById('pusan').addEventListener('mouseout', (event) =>{
@@ -109,7 +109,7 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
     input.addEventListener('keyup', async (event) =>{ //html에서 onkeyup말고 js에서 이벤트처리해야 유지보수하기 좋음.
         if(event.key == 'Enter'){
             fetchStation(input.value).then(response =>{
-                console.log(response);
+                console.log(response); //ok
             });
         }
     }) 
