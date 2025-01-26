@@ -1,7 +1,7 @@
 import {fetchStation} from './js/api.js'; //import는 최상단에.
 window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행할 수 있게 함.
 
-    function createLineImg (mapContainer, data){
+    function createLineImg(mapContainer, data){
         data.forEach(element => {
             let lineImg = document.createElement('img'); 
             lineImg.id = element.id; 
@@ -105,14 +105,12 @@ window.onload = function() { //html의 DOM이 모두 로드 된 후에 js실행�
 
         deleteLineImg(mapContainer, ['gyeongbuLine']);
     })
- 
     const input = document.getElementById('searchInput');
-    const data = {};
-    input.addEventListener('keyup', (event) =>{ //html에서 onkeyup말고 js에서 이벤트처리해야 유지보수하기 좋음.
+    input.addEventListener('keyup', async (event) =>{ //html에서 onkeyup말고 js에서 이벤트처리해야 유지보수하기 좋음.
         if(event.key == 'Enter'){
-            fetchStation(input.value).then((response) =>{
+            fetchStation(input.value).then(response =>{
                 console.log(response);
-            })
+            });
         }
     }) 
 }
