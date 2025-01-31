@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css" >
+    <link rel="stylesheet" href="css/reset.css" >
+    <link rel="stylesheet" href="css/global.css" >
     <!-- import, export를 사용할 js는 type="module"지정 -->
     <script type="module" src="js/main.js"></script> 
     <script type="module" src="js/api.js"></script>
@@ -11,69 +13,78 @@
 </head>
 <body>
     <div id="header">
-        <div id="logo">
-            <img src="assets/image/logo.png" alt="로고">
+        <div id="logo_wrap">
+            <a role="link" href="#">
+                <img id="logo" src="assets/image/logo.png" alt="로고">
+            </a>
         </div>
-        <div id="searchboxContainer">
-            <img id="iconSearch" src="assets/image/icon-search.png" >
-            <input id="searchInput" class="input" placeholder="출발지를 검색하세요" type="text">
-            <img id="btnCancel" src="assets/image/icon-x.png" alt="취소버튼">
-        </div>    
-        <div id="menu">
-            <img src="assets/image/icon-menu.png" alt="메뉴버튼" >
+        <div id="menu_wrap">
+            <button id="btn_menu" role="button" aria-label="메뉴열기">
+                <img src="assets/image/icon-menu.png" alt="메뉴버튼" >
         </div>
     </div>   
     <div id="main">
-        <div id="Heading">                
-            <div class="mainHeading">기차로 떠나는 숨겨진 국내 여행지의 매력을 만나보세요</div>
-            <div class="subHeading">지도 위의 지역에 마우스를 올리면 해당 지역과 연결된 철도 노선을 확인할 수 있어요</div>
-        </div>
-        <div id="mapContainer">
-            <img id="map" src="assets/image/map.png" alt="지도">
-            <img id="seoul" class="mapPin" src="assets/image/seoul.png" alt="서울역">
-            <img id="yongsan" class="mapPin" src="assets/image/yongsan.png" alt="용산역">
-            <img id="suwon" class="mapPin"src="assets/image/suwon.png" alt="수원역">
-            <img id="osong" class="mapPin"src="assets/image/osong.png" alt="오송역">
-            <img id="pusan" class="mapPin"src="assets/image/pusan.png" alt="부산역">
-            <img id="gwangjusongjeong" class="mapPin"src="assets/image/gwangjusongjeong.png" alt="광주송정역">
-        </div>
-        <div id="mainStationContainer">
-            <div id="mainStation">주요 역</div>
-            <div class="stationContainer">
-                <ul class="stationInfo" id="stationSeoul" >
-                    <li class="name">서울역</li>
-                    <li class="line gyeongbu">경부선</li>
-                    <li class="line gyeongjeon">경전선</li>
-                    <li class="line gangneung">강릉선</li>
-                    <li class="line jungang">중앙선</li>
-                </ul>
-                <ul  class="stationInfo" id="stationYongsan" >
-                    <li class="name">용산역</li>
-                    <li class="line honam">호남선</li>
-                    <li class="line jeonra">전라선</li>
-                </ul>
-                <ul class="stationInfo" id="stationSuwon" >
-                    <li class="name">수원역</li>
-                    <li class="line gyeongbu">경부선</li>
-                </ul>
-                <ul class="stationInfo" id="stationOsong" >
-                    <li class="name">오송역</li>
-                    <li class="line gyeongbu">경부선</li>
-                    <li class="line honam">호남선</li>
-                    <li class="line gyeongjeon">경전선</li>
-                    <li class="line jeonra">전라선</li>
-                </ul>
-                <ul class="stationInfo" id="stationBusan" >
-                    <li class="name">부산역</li>
-                    <li class="line gyeongbu">경부선</li>
-                </ul>
-                <ul class="stationInfo" id="stationGwangjusongjeong" >
-                    <li class="name">광주송정역</li>
-                    <li class="line honam">호남선</li>
-                </ul>
+        <div id="title">기차로 떠나는 숨겨진 국내 여행지의 매력을 만나보세요</div>
+        <div id="searchbox_wrap">
+            <div id="searchbox_container">
+                <img id="icon_search" src="assets/image/icon-search.png" >
+                <input id="search_input" class="input" placeholder="출발역 이름을 검색하세요" type="text">
+                <!-- 검색어를 입력하면 취소버튼 나오게 수정해야함 -->
+                <!-- <img id="btnCancel" src="assets/image/icon-x.png" alt="취소버튼">  -->
             </div>
-
+        </div>   
+        <div id="btn_down_wrap">
+            <img id="btn_down" src="assets/image/icon-down.png" alt="아래로 버튼">
+        </div> 
+        <div id="map_container">
+            <img id="map" src="assets/image/map.png" alt="지도">
         </div>
+        <section id="recommend_spot">
+            <div class="section_heading">
+                <h2 class="section_heading_title">추천 여행지</h2>
+                <a role="link">
+                    <span>더보기></span>
+                </a>
+            </div>
+            <div class="swipper_container">
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-suwon-banghwa.png" alt="방화수류정">
+                        <div class="spot_info">
+                            <h3>방화수류정</h3>
+                            <p>경기도 수원시</p>
+                            <p>#야경 #데이트</p>
+                        </a>
+                </article>
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-pohang-kunlun.png" alt="방화수류정">
+                        <div class="spotInfo">
+                            <h3>곤륜산</h3>
+                            <p>경상북도 포항시</p>
+                            <p>#탁 트인 경치 #하이킹</p>
+                    </a>
+                </article>
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-namwon-guryong.png" alt="방화수류정">
+                        <div class="spotInfo">
+                            <h3>구룡폭포</h3>
+                            <p>전라북도 남원시</p>
+                            <p>#물놀이 #트레킹</p>
+                        </a>
+                    </article>
+                </div>
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-jecheon-cheongpung.png" alt="방화수류정">
+                        <div class="spotInfo">
+                            <h3>청풍호 모노레일</h3>
+                            <p>충청북도 제천시</p>
+                            <p>#스릴 #아이와 함께</p>
+                    </a>
+                </article>
+            </section>
     </div>
     <div id="footer">
         @Made by DaramLee
