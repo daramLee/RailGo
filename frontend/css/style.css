@@ -1,194 +1,81 @@
-* { 
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-body{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-#header{
-    display: flex;
-    /* flex-basis: 120px; */
-    width: 100%;
-    height: 280px;
-    margin-bottom: 66px;
-    justify-content: space-between; /*부모넓이 설정해줘야함*/
-    position: fixed;
-    background-color: white;
-    opacity: 94%;
-    z-index: 100;
-}
-#logo > img{
-    width: 400px;
-    height: 100px;
-    margin: 90px 90px;
-}
-#searchboxContainer{
-    display: flex;
-    position: relative;
-    width: 1500px;
-    height: 140px;
-    margin: 70px 48px;
-}
-#searchboxContainer > #searchInput{
-    width: 100%; /*부모를 기준으로 100%가 됨*/
-    padding-left: 130px;
-    padding-top: 14px;
-    border: 4px solid #f9f9f9; /* 테두리 속성은 한꺼번에 */
-    background-color: #f9f9f9;
-    border-radius: 9999px;
-    font-size: 44px;
-}
-#iconSearch{
-    position: absolute;
-    width: 53px;
-    top: 42px;
-    left: 40px;
-}
-#btnCancel{
-    position: absolute;
-    width: 42px;
-    top: 48px;
-    right: 54px; /*부모와 5px만큼 떨어져있게 함*/
-}
-#menu > img{
-    width: 100px;
-    height: 70px;
-    margin: 110px 80px;
-}
-#main{
-    flex-basis: 1400px;
-    margin-top: 300px;
-}
-#Heading{
-    margin-left: 650px;
-    margin-bottom: 0px;
-    width: 1560px;
-    line-height: 1.5;
-}
-.mainHeading{
+#title{
     color: #1e1e1e;
-    font-size: 86px;
-    margin-bottom: 30px;
+    font-size: 3vw;
+    font-size: 3vw;
+    margin: 10% 0 5% 0;
 } 
-.subHeading{
-    font-size: 40px;
-    color: #757575;
+#searchbox_wrap{
+    width: 80%;
+    height: 10%;
+    margin-top: 3%;
 }
-#mapContainer{
+#searchbox_container{
+    display: flex;
     position: relative;
-    margin: 30px 0px;
-    margin-left: 400px;
-    background-color: #e9e9e9;
-    /* border-radius: 8px; */
-} 
+    width: 100%;
+    height: 55px;
+}
+#search_input{
+    width: 100%;
+    /* width: 100%; 부모를 기준으로 100%가 됨 */
+    height: 100%;
+    padding-left: 10%;
+    border: 2px solid #d9d9d9; /* 테두리 속성은 한꺼번에 */
+    border-radius: 9999px;
+    font-size: 2.3vw;
+}
+#icon_search{
+    position: absolute;
+    width: 4%;
+    top: 50%;
+    transform: translateY(-50%); /* 자신의 길이 절반만큼 위로 올림. top만으로 완벽한 중앙정렬이 안돼서 */
+    left: 4%;
+}
+#btn_down_wrap{
+    width: 10%;
+    margin: 10% 0 10% 0;
+}
+#btn_down{
+    width: 100%;
+    height: 100%;
+}
+#map_container{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 80vh;
+}
 #map{
-    width: 2100px;
+    width: 50%;
+    height: 100%;
 }
-.mapPin{
-    position: absolute;
-    width: 310px;
-    opacity: 60%;
-    z-index: 10;
-}
-.mapPin:hover{
-    opacity: 100%;
-}
-#seoul {
-    left: 530px;
-    top: 530px;
-}
-#yongsan {
-    left: 530px;
-    top: 530px;
-}
-#suwon {
-    left: 540px;
-    top: 580px;
-}
-#osong {
-    left: 660px;
-    top: 1100px;
-}
-#pusan {
-    left: 1398px;
-    top: 1980px;
-}
-#gwangjusongjeong {
-    left: 378px;
-    top: 1946px;
-}
-.lineImg{
-    position: absolute;
-    width: 1900px;
-    height: 2000px;
-}
-#gyeongbuLine{
-    z-index: 6;
-    top: 350px;
-    left: 80px;
-}
-#gyeongjeonLine{
-    z-index: 5;
-    top: 350px;
-    left: 80px;
-}
-#honamLine{
-    z-index: 4;
-    top: 370px;
-    left: 80px;
-}
-#jeonraLine{
-    z-index: 3;
-    top: 390px;
-    left: 80px;
-}
-#gangneungLine{
-    z-index: 2;
-    top: 350px;
-    left: 80px;
-}
-#jungangLine{
-    z-index: 1;
-    top: 350px;
-    left: 80px;
-}
-
-#mainStationContainer{
+#recommend_spot{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    width: 100%;
+    height: 40vh;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
 }
-#mainStation{
-    font-size: 40px;
-    font-weight: bold;
-}
-.stationContainer{
+.section_heading{
     display: flex;
-    margin: 6px 0 40px 0;
-    gap: 20px;
-
+    width: 100%;
+    height: 8vh;
+    font-size: 2vw;
+    justify-content: space-between;
 }
-.stationInfo{
-    width: 200px;
-    height: 276px;
-    justify-content: flex-start;
-    margin-top: 20px;
-    padding: 30px 2px 0px 16px;
-    list-style: none;
-    border: 1px solid #e9e9e9;
-    border-radius: 35px;
+.swipper_container{
+    display: inline-flex;
+    width: 100%;
 }
-.name{
-    font-size: 32px;
-    margin-bottom: 16px;
+.spot{
+    display: inline-block; /*이거 지우면 왜 글씨가 사진 뒤로 가지지 */
+    position: relative;
+    width: 25%;
 }
-.line{
-    font-size: 22px;
-    margin-bottom: 4px;
-    color: #757575;
+.spot_info{
+    position: absolute;
+    /* z-index: 3; */
 }
 .gyeongbu{
     color: #FF9843;

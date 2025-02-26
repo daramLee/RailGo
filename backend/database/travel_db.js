@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import traveldb from 'mysql2';
 
-dotenv.config({ path: '../../.env' }); //실행환경에 따라 경로를 달리 해줘야함....
+dotenv.config({ path: '../../.env' }); 
 
 
 const connection = traveldb.createConnection({
