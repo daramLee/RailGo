@@ -4,7 +4,8 @@ import traveldb from 'mysql2';
 dotenv.config({ path: '../../.env' }); 
 
 
-const connection = traveldb.createConnection({
+const pool = traveldb.createPool({
+    connectionLimit: 3,
     host: process.env.DB_HOST,
     port: process.env.DB_PORT,
     user: process.env.DB_USER,
@@ -12,12 +13,4 @@ const connection = traveldb.createConnection({
     database: process.env.DB_NAME
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('MySQL 연결 실패:', err.message);
-        return;
-    }
-    console.log('MySQL 연결 성공!');
-});
-
-export default connection;
+export default pool;

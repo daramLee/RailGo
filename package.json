@@ -6,7 +6,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd backend/server && node server",
-    "start:frontend": "cd frontend && http-server -p 8080 -o index.html"
+    "start:frontend": "cd frontend && npx http-server -p 8080 -o index.html"
   },
   "keywords": [],
   "author": "DaramLee",

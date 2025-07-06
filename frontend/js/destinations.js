@@ -1,4 +1,4 @@
-import { fetchDestinationNames } from './api.js'; //import는 최상단에.
+import { fetchDestinationNames, fetchDestinationDetail } from './api.js'; //import는 최상단에.
 
 const destCountPerPage = 8;
 
@@ -7,19 +7,36 @@ window.onload = async function(){
     //그래서 페이지 별로 대응하는 각 파일에서
     //해당 페이지의 이벤트 처리와 랜더링을 모두 담당한다.
     const searchInput = localStorage.getItem('searchInput');
-    const destinationNames = await fetchDestinationNames(searchInput);
-    const btnPages = document.getElementsByClassName('btn_page');
+    const destinationNames = await fetchDestinationNames(searchInput); //전체 여행지 목록.
+    const btnPageElements = document.getElementsByClassName('btn_page'); 
+    // const btnDestinationNameElements = document.getElementsByClassName('btn_destination'); 
+    const destinationListContainer = document.getElementById('destinations_container');
+
+    console.log(destinationListContainer);
 
     renderSearchInput(searchInput);
     renderSidebar(searchInput, destinationNames);
 
-    Array.from(btnPages).forEach(btnPage => {
+    Array.from(btnPageElements).forEach(btnPage => {
         btnPage.addEventListener('click', (event) =>{
             console.log(btnPage.id);
             document.getElementById('destinations_container').innerHTML = '';
-            renderDestinationOfCurrentPage(event.target, destinationNames);
+            renderDestinationOfCurrentPage(event.target, destinationNames); 
         })
     });
+
+    destinationListContainer.addEventListener('click', async (event) =>{
+        if (event.target.className ='btn_destination'){
+            console.log(event.target); //ok
+            const destinationName = event.target.textContent;
+            console.log(destinationName); //ok
+            
+            const tempResult = await fetchDestinationDetail(searchInput, destinationName);
+            console.log(tempResult);
+        }
+    });
+
+
 
     
 
@@ -53,6 +70,23 @@ function renderDestination(destinationNames){
     }
 }
 //페이지네이션 관련 함수
+//ON! 페이지를 배열에 넣어서 반환해야하는거 같은데 어떻게 하지
+function renderDestinationOfCurrentPage(btnPage, destinationNames){
+    console.log('현재 페이지 렌더링 함수 실행중');
+    const btnPageIndex = btnPage.id.slice(-1);
+
+    for(let i = 0; i < destCountPerPage; i++){
+        const li = document.createElement('li');
+        const btnDestinationName = document.createElement('button');
+
+        btnDestinationName.className = 'btn_destination';        
+        btnDestinationName.textContent = destinationNames[destCountPerPage * btnPageIndex + i];
+
+        document.getElementById('destinations_container').appendChild(li);
+        li.appendChild(btnDestinationName);
+    }
+    document.getElementsByClassName('btn_destination');
+}
 function renderBtnPage(totalPageCount){
     const btnPageContainer = document.getElementById('btn_page_container');
     for(let i = 0; i < totalPageCount; i++){
@@ -69,19 +103,4 @@ function renderBtnPage(totalPageCount){
 }
 function getTotalPageCount(totalDestCount){
     return Math.ceil(totalDestCount / destCountPerPage);
-}
-function renderDestinationOfCurrentPage(btnPage, destinationNames){
-    console.log('현재 페이지 렌더링 함수 실행중');
-    const btnPageIndex = btnPage.id.slice(-1);
-
-    for(let i = 0; i < destCountPerPage; i++){
-        const li = document.createElement('li');
-        const btnDestination = document.createElement('button');
-
-        btnDestination.className = 'btn_destination';        
-        btnDestination.textContent = destinationNames[destCountPerPage * btnPageIndex + i];
-
-        document.getElementById('destinations_container').appendChild(li);
-        li.appendChild(btnDestination);
-    }
 }

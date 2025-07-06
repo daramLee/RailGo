@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- GET favicon.ico에러 임시 해결책 -->
+    <link rel="shortcut icon" href="#"> 
     <link rel="stylesheet" href="../css/reset.css" >
     <link rel="stylesheet" href="../css/global.css" >
     <link rel="stylesheet" href="../css/pages/destinations.css" >
@@ -34,6 +36,10 @@
         <div id="map_container">
             <div id="map_wrap">
                 <img id="map" src="../assets/image/map.png" alt="지도">
+                <div id="map_point_container">
+                    <img id="map_point_img" src="../assets/image/map-point.png" alt="서울표시">
+                    <div id="map_point_name">서울</div>
+                </div>
             </div>
             <div id="map_side_bar">
                 <div id="side_bar_title" class="map_side_bar_heading"></div>

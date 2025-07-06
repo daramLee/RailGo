@@ -5,13 +5,40 @@
    height: 90vh;
 }
 #map_wrap{
-    width: 70%;
-    height: 80%;
+    position: relative;
+    width: 440px;
+    height: 600px;
     margin-right: 4vw;
 }
 #map{
-    width: 100%;
-    height: 100%;
+    width: 440px;
+    height: 600px;
+}
+#map_point_container{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1; /* 지도 위에 표시되도록 */
+}
+#map_point_img{
+    width: 100px;
+    height: 80px;
+    z-index: 5; /* 지도 위에 표시되도록 */
+}
+#map_point_name{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -84%);
+    color: #FFFFFF;
+    z-index: 10;
+
 }
 #map_side_bar{ /* 미디어쿼리로 크기 조정해야함*/
     width: 160px;
