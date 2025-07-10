@@ -1,11 +1,10 @@
-import { fetchDestinationNames, fetchDestinationDetail } from './api.js'; //import는 최상단에.
+import { fetchDestinationNames, fetchDestinationDetail, fetchDestinationMapPointPosition } from './api.js'; //import는 최상단에.
+import MapPoint from '../component/mapPoint.js';
+
 
 const destCountPerPage = 8;
 
 window.onload = async function(){
-    //프로젝트가 작기 때문에 반복이 적을 것이라고 생각된다.
-    //그래서 페이지 별로 대응하는 각 파일에서
-    //해당 페이지의 이벤트 처리와 랜더링을 모두 담당한다.
     const searchInput = localStorage.getItem('searchInput');
     const destinationNames = await fetchDestinationNames(searchInput); //전체 여행지 목록.
     const btnPageElements = document.getElementsByClassName('btn_page'); 
@@ -31,16 +30,12 @@ window.onload = async function(){
             const destinationName = event.target.textContent;
             console.log(destinationName); //ok
             
-            const tempResult = await fetchDestinationDetail(searchInput, destinationName);
-            console.log(tempResult);
+            //사이드바에 여행지를 누르면 열차 상세정보(기차명, 평균 소요 시간, 평균 비용) 객체 배열이 반환됨.
+            const destinationDetail = await fetchDestinationDetail(searchInput, destinationName);
+            console.log(destinationDetail);
+            showMapPoint(destinationName, destinationDetail); //지도에 맵핀이랑 상세정보가 출력.
         }
     });
-
-
-
-    
-
-    //seachbox 재 검색시 관련 이벤트 추가. 나머지 다시 Render
 }
 
 function renderSearchInput(searchInput){
@@ -70,7 +65,6 @@ function renderDestination(destinationNames){
     }
 }
 //페이지네이션 관련 함수
-//ON! 페이지를 배열에 넣어서 반환해야하는거 같은데 어떻게 하지
 function renderDestinationOfCurrentPage(btnPage, destinationNames){
     console.log('현재 페이지 렌더링 함수 실행중');
     const btnPageIndex = btnPage.id.slice(-1);
@@ -103,4 +97,13 @@ function renderBtnPage(totalPageCount){
 }
 function getTotalPageCount(totalDestCount){
     return Math.ceil(totalDestCount / destCountPerPage);
+}
+
+async function showMapPoint(destinationName, destinationDetail){
+    console.log('showMapPoint함수 실행');
+    //여행지를 누르면 지도상 위치 반환하고 그 위치로 화면에 출력됨.
+    const position = await fetchDestinationMapPointPosition(destinationName); 
+    console.log(position);
+    //ex) position = { top: 76, left: 88 }
+    MapPoint(destinationName, position);
 }

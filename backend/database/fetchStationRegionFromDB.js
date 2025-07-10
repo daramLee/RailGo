@@ -16,8 +16,7 @@ export async function fetchStationRegionFromDB(departure, destination){
                     'departureRegion' : Object.values(departureRegion),
                     'destinationRegion' : Object.values(destinationRegion)
                 };
-                console.log("여기 확인해야됨");
-                console.log(departureRegion); //여기서 '서울특별시'만 나오게 해야됨. ON!
+                console.log(departureRegion);
                 connection.release();
                 resolve(regions);
             } catch(error){

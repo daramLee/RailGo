@@ -6,22 +6,37 @@ import { fetchStationRegionFromDB } from '../database/fetchStationRegionFromDB.j
 
 
 let server = http.createServer(async function(request, response){
-    response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
-    response.writeHead(200, {'Content-Type' : 'application/json; charset=utf8'}); 
     const url = new URL(request.url, `http://${request.headers.host}`);
 
-    if(url.pathname == '/destinations'){
-        console.log("/dstinations 진입 성공");
+    if (request.method === 'OPTIONS') {
+        response.writeHead(204, {
+            'Access-Control-Allow-Origin': 'http://127.0.0.1:8080',
+            'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+            'Access-Control-Allow-Headers': 'Content-Type',
+        });
+        response.end();
+        return;
+    }
+
+    if (url.pathname == '/destinations') { 
+        console.log("/destinations 진입 성공");
+        response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
+
         const departure = url.searchParams.get('departure');
         const destinations = await fetchDestinationNamesFromDB(departure);
         console.log(destinations);
+        response.writeHead(200, { 'Content-Type': 'application/json' });
         response.end(JSON.stringify(destinations));
+        
+        return ;
 
-    //이 코드를 실행하면서 오류가 나는 것 같음. 제대로 동작하는지 로그찍으면서 확인하기 ON!
-    }else if(url.pathname == '/region'){
+    } else if (url.pathname == '/region') {
         console.log("1. /region 진입 성공");
+        response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
+
         const departure = url.searchParams.get('departure');
         const destination = url.searchParams.get('destination');
+
         const regions = await fetchStationRegionFromDB(departure, destination);
         console.log(`2. 지역정보 조회 성공 : ${JSON.stringify(regions)}`);
         const cityCodes = await fetchCityCode(regions);
@@ -43,19 +58,44 @@ let server = http.createServer(async function(request, response){
 
         //ON! 아래 average뭐시기 함수 구현해야됨.
         const averageTrainInfo = averageChargeAndTime(essentialTrainInfo);
+
+        response.writeHead(200, { 'Content-Type': 'application/json' });
         response.end(JSON.stringify(essentialTrainInfo));
+        
+        return ;
+
+    } else if (request.method == 'POST' && url.pathname == '/destinations/position') {
+        console.log('destinations/position 진입 성공');
+        response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
+
+        let body = '';
+        request.on('data', chunk => {
+            body += chunk;
+        });
+        request.on('end', () => {
+            const data = JSON.parse(body);
+            //destinations 이름 받아야 함.
+            const position = fetchMapPointPosition(data.name);
+            //ex) position = { top: 76, left: 88 }
+
+            response.writeHead(200, { 'Content-Type': 'application/json' });
+            response.end(JSON.stringify(position));
+        })
+        return;
     }
 
+    // response.writeHead(404);
+    // response.end('Not Found');
     //아직 server.close() 안함.
 })
 
-server.listen(8080, function(){ 
+server.listen(8080, function () { 
     console.log('Server is running...');
 });
 //http://localhost:8080
 
 //호출되는 메소드들
-async function fetchTrainInfo(stationIds){
+async function fetchTrainInfo ( stationIds ) {
     const url = 'http://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo'; 
     //데이터 설정
     const queryParams = new URLSearchParams({
@@ -72,7 +112,7 @@ async function fetchTrainInfo(stationIds){
     }); //서버에 요청
     return response.data.response.body.items.item;
 }
-async function fetchCityCode(regions){
+async function fetchCityCode ( regions ) {
     const codeList = await fetchCityCodeList();
     const cityCodes = {};
     //codeList에서 regions.departureRegion과 regions.destinationRegion과 같은 코드 찾기 
@@ -92,7 +132,7 @@ async function fetchCityCode(regions){
     return cityCodes;
 }  
 
-async function fetchCityCodeList(){
+async function fetchCityCodeList () {
     const url = 'http://apis.data.go.kr/1613000/TrainInfoService/getCtyCodeList';
 
     const queryParams = new URLSearchParams({
@@ -108,7 +148,7 @@ async function fetchCityCodeList(){
         return response.data.response.body.items.item; //ok
     }
 }
-async function fetchStationIdsFromCityCode(stationName, cityCode) {
+async function fetchStationIdsFromCityCode ( stationName, cityCode ) {
     const url = 'http://apis.data.go.kr/1613000/TrainInfoService/getCtyAcctoTrainSttnList';
     const queryParams = new URLSearchParams({
         serviceKey : 'Dc0zKWMbPqEIYgR5dg5v2ETstlPOsoWXdTLVCkl6p8MdZYeNVHyReg0L0gU3DtXEjt4PRnpqsrWpQXqtwKXnPg==', //디코딩 키
@@ -127,7 +167,7 @@ async function fetchStationIdsFromCityCode(stationName, cityCode) {
         }
     }
 }
-function extractTrainInfoFrom(totalTrainInfo){
+function extractTrainInfoFrom ( totalTrainInfo ) {
     //9. 상세정보 결과에서 열차번호, 차량 종류명,
         // 운임, 출발 시간, 도착 시간을 추출한다. 
     const essentialTrainInfo = totalTrainInfo.map(({adultcharge, arrplandtime, depplandtime, traingradename, trainno}) => {
@@ -135,7 +175,7 @@ function extractTrainInfoFrom(totalTrainInfo){
     })
     return essentialTrainInfo;
 }
-function averageChargeAndTime(essentialTrainInfo){
+function averageChargeAndTime ( essentialTrainInfo ) {
             
 // 10. 차량 종류명에 따라  essentialTrainInfo의 요소를 각 배열에 저장한다.
 // 11. 소요시간 - 도착시간에서 출발시간을 뺀 뒤 평균 계산.  -> 다음날엔 00시인지 24시인지 확인해봐야 함.
@@ -145,5 +185,29 @@ function averageChargeAndTime(essentialTrainInfo){
 //결과로 나온 초의 평균을 다시 시간으로 바꾸면 끄읕.
 // 12. 운임 - 심야,새벽 시간대를 제외시킨 뒤 평균 계산.
 }
+function fetchMapPointPosition ( destinationName ) {
+    console.log('fetchMapPointPosition 함수 진입');
+    //여행지 이름으로 조회해서 position 반환.
+    const positionByDestinations = {
+        서울: {
+            top: 20,
+            left: 32
+        },
+        부산: {
+            top: 76,
+            left: 88
+        }
+    };
+
+    for (const key in positionByDestinations) {
+        if (key == destinationName) {
+            console.log('fetchMapPointPosition에서 조회 결과 :', positionByDestinations[key]);
+            return positionByDestinations[key];
+        }
+    }
+
+}
+
+
 // fetchDestinationDetail(); //임시
 // fetchStationIdsFromCityCode(32);
