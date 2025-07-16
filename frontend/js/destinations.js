@@ -25,7 +25,7 @@ window.onload = async function(){
     });
 
     destinationListContainer.addEventListener('click', async (event) =>{
-        if (event.target.className ='btn_destination'){
+        if (event.target.className == 'btn_destination'){
             console.log(event.target); //ok
             const destinationName = event.target.textContent;
             console.log(destinationName); //ok
@@ -33,7 +33,8 @@ window.onload = async function(){
             //사이드바에 여행지를 누르면 열차 상세정보(기차명, 평균 소요 시간, 평균 비용) 객체 배열이 반환됨.
             const destinationDetail = await fetchDestinationDetail(searchInput, destinationName);
             console.log(destinationDetail);
-            showMapPoint(destinationName, destinationDetail); //지도에 맵핀이랑 상세정보가 출력.
+            await showMapPoint(destinationName); //지도에 맵핀이랑 상세정보가 출력.
+            showTrainDetailBox(destinationDetail);
         }
     });
 }
@@ -95,15 +96,36 @@ function renderBtnPage(totalPageCount){
         btnPageWrap.appendChild(btnPage);
     }
 }
-function getTotalPageCount(totalDestCount){
+function getTotalPageCount ( totalDestCount ) {
     return Math.ceil(totalDestCount / destCountPerPage);
 }
 
-async function showMapPoint(destinationName, destinationDetail){
+async function showMapPoint ( destinationName ) {
     console.log('showMapPoint함수 실행');
     //여행지를 누르면 지도상 위치 반환하고 그 위치로 화면에 출력됨.
     const position = await fetchDestinationMapPointPosition(destinationName); 
     console.log(position);
     //ex) position = { top: 76, left: 88 }
     MapPoint(destinationName, position);
+}
+
+function showTrainDetailBox ( destinationDetail ) {
+    console.log('showTrainDetailBox 함수 진입');
+    const mapPin = document.getElementById('map_pin_container'); 
+    const detailBox = document.getElementById('train_detail_box');
+
+    // detailBox.innerText = destinationDetail;
+
+    const rect = mapPin.getBoundingClientRect(); //뷰포트 기준으로 계산함.
+    detailBox.style.position = 'absolute';
+
+
+    //ON! 상세정보 위치가 어정쩡함. 위치 고쳐야 함.
+    detailBox.style.top = `${(rect.top + window.scrollY)- 120}px`;
+    detailBox.style.left = `${(rect.left + window.scrollX) - 240}px`;
+
+    const detail = detailBox.getBoundingClientRect();
+
+    console.log(detail);
+    console.log(rect);
 }

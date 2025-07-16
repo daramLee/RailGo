@@ -35,13 +35,47 @@
     <div id="main">
         <div id="map_container">
             <div id="map_wrap">
+                <img id="map" src="../assets/image/map.png" alt="지도">
                 <div id="map_pin_container">
                     <button id="map_pin_button" role="button">
                         <img id="map_pin_img" src="../assets/image/map-point.png" alt="맵핀 아이콘">
                         <div id="map_pin_name"></div>
                     </button>
                 </div>
-                <img id="map" src="../assets/image/map.png" alt="지도">
+                <div id="train_detail_box">
+                    <div id="top_bar">
+                        <button id="x_button" >
+                            <img id="x_button_img" src="../assets/image/icon-x.png" alt="x 버튼">
+                        </button>
+                    </div>
+                    <div id="detail_contents_container">
+
+                        <div id="train_type_container" class="detail_contents_item">
+                            <div class="detail_contents_img_wrap">
+                                <img id="train_type_img" class="detail_contents_img" src="../assets/image/train.png" alt="기차 아이콘">
+                            </div>
+                            <div id="train_type_label" class="detail_contents_label">기차</div>
+                            <div id="train_type">KTX</div>
+                        </div>
+
+                        <div id="average_time_container" class="detail_contents_item">
+                            <div class="detail_contents_img_wrap">
+                                <img id="average_time_img" class="detail_contents_img" src="../assets/image/hourglass.png" alt="모래시계 아이콘">
+                            </div>
+                            <div id="average_time_label" class="detail_contents_label">평균 소요 시간</div>
+                            <div id="average_time">2시간 30분</div>
+                        </div>
+
+                        <div id="average_cost_container" class="detail_contents_item">
+                            <div class="detail_contents_img_wrap">
+                                <img id="average_cost_img" class="detail_contents_img" src="../assets/image/dollar-circle.png" alt="달러 아이콘">
+                            </div>
+                            <div id="average_cost_label" class="detail_contents_label">평균 비용</div>
+                            <div id="average_cost">59,800원</div>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
             </div>
             <div id="map_side_bar">
                 <div id="side_bar_title" class="map_side_bar_heading"></div>
