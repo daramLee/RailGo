@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:8080';
+import { BASE_URL } from './config.js';
 
 export async function fetchDestinationNames ( departure ) {
     //GET 서울역에서 갈 수 있는 역 리스트로..
