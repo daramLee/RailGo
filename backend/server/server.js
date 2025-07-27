@@ -3,6 +3,10 @@ import axios from 'axios';
 import http from 'http';
 import { fetchDestinationNamesFromDB } from '../database/fetchDestinationNamesfromDB.js';
 import { fetchStationRegionFromDB } from '../database/fetchStationRegionFromDB.js';
+import dotenv from 'dotenv';
+
+dotenv.config();
+const serviceKey = process.env.SERVICE_KEY;
 
 
 let server = http.createServer(async function(request, response){
@@ -56,8 +60,8 @@ let server = http.createServer(async function(request, response){
 // 11. 운임 - 심야,새벽 시간대를 제외시킨 뒤 평균 계산.
 // 12. 소요시간 - 도착시간에서 출발시간을 뺀 뒤 평균 계산.
 
-        //ON! 아래 average뭐시기 함수 구현해야됨.
         const averageTrainInfo = averageChargeAndTime(essentialTrainInfo);
+        console.log(`10. 열차정보 평균 계산 성공 : ${JSON.stringify(averageTrainInfo)}`);
 
         response.writeHead(200, { 'Content-Type': 'application/json' });
         response.end(JSON.stringify(essentialTrainInfo));
@@ -97,14 +101,20 @@ server.listen(8080, function () {
 //호출되는 메소드들
 async function fetchTrainInfo ( stationIds ) {
     const url = 'http://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrainInfo'; 
-    //데이터 설정
+
+    //출발날짜 데이터 가공
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const formattedToday = `${year}${month}${day}`;
+
     const queryParams = new URLSearchParams({
-        // serviceKey : 'Dc0zKWMbPqEIYgR5dg5v2ETstlPOsoWXdTLVCkl6p8MdZYeNVHyReg0L0gU3DtXEjt4PRnpqsrWpQXqtwKXnPg%3D%3D', //인코딩 키
-        serviceKey : 'Dc0zKWMbPqEIYgR5dg5v2ETstlPOsoWXdTLVCkl6p8MdZYeNVHyReg0L0gU3DtXEjt4PRnpqsrWpQXqtwKXnPg==', //디코딩 키
+        serviceKey : serviceKey, 
         _type : 'json',
         depPlaceId : stationIds.departureId, 
         arrPlaceId : stationIds.destinationId, 
-        depPlandTime : '20250225' //임시
+        depPlandTime : formattedToday
     });
 
     const response = await axios.get(`${url}?${queryParams}`).catch(e =>{
@@ -115,8 +125,8 @@ async function fetchTrainInfo ( stationIds ) {
 async function fetchCityCode ( regions ) {
     const codeList = await fetchCityCodeList();
     const cityCodes = {};
+
     //codeList에서 regions.departureRegion과 regions.destinationRegion과 같은 코드 찾기 
-    console.log("이거 이제 확인");
     console.log(regions.departureRegion); //결과 :  [ '서울특별시' ]
     codeList.forEach((city) => {
         if(city.cityname == regions.departureRegion){
@@ -136,7 +146,7 @@ async function fetchCityCodeList () {
     const url = 'http://apis.data.go.kr/1613000/TrainInfoService/getCtyCodeList';
 
     const queryParams = new URLSearchParams({
-        serviceKey : 'Dc0zKWMbPqEIYgR5dg5v2ETstlPOsoWXdTLVCkl6p8MdZYeNVHyReg0L0gU3DtXEjt4PRnpqsrWpQXqtwKXnPg==', //디코딩 키
+        serviceKey : serviceKey,
         _type : 'json'
     });
     const response = await axios.get(`${url}?${queryParams}`).catch(e =>{
@@ -151,7 +161,7 @@ async function fetchCityCodeList () {
 async function fetchStationIdsFromCityCode ( stationName, cityCode ) {
     const url = 'http://apis.data.go.kr/1613000/TrainInfoService/getCtyAcctoTrainSttnList';
     const queryParams = new URLSearchParams({
-        serviceKey : 'Dc0zKWMbPqEIYgR5dg5v2ETstlPOsoWXdTLVCkl6p8MdZYeNVHyReg0L0gU3DtXEjt4PRnpqsrWpQXqtwKXnPg==', //디코딩 키
+        serviceKey : serviceKey,
         _type : 'json',
         cityCode : cityCode,
         numOfRows : 100
@@ -160,7 +170,7 @@ async function fetchStationIdsFromCityCode ( stationName, cityCode ) {
     const response = await axios.get(`${url}?${queryParams}`).catch(e =>{
         console.error(e);
     });
-    for(const item of response.data.response.body.items.item){
+    for (const item of response.data.response.body.items.item) {
         if(item.nodename == stationName){
             console.log(`7. 역 코드 조회 성공 : ${item.nodeid}`);
             return item.nodeid;
@@ -176,8 +186,44 @@ function extractTrainInfoFrom ( totalTrainInfo ) {
     return essentialTrainInfo;
 }
 function averageChargeAndTime ( essentialTrainInfo ) {
-            
-// 10. 차량 종류명에 따라  essentialTrainInfo의 요소를 각 배열에 저장한다.
+    // 10. 차량 종류명에 따라  essentialTrainInfo의 요소를 각 배열에 저장한다.
+    console.log('averageChargeAndTime 함수 진입');
+    console.log('essentialTrainInfo 출력:', JSON.stringify(essentialTrainInfo, null, 2));
+    //ON! 평균 계산하기
+    //trainGradeName이 같은 애들끼리 묶어서 객체배열만들기
+    //reduce이용해서 키로 객체 묶기
+    const groupedByTrainGradeName = essentialTrainInfo.reduce((acc, cur) => {
+        const key = cur.trainGradeName;
+        acc[key] = acc[key] || [];
+        acc[key].push(cur);
+        
+        return acc;
+    }, {});
+    console.log('현재 작업 중인 객체', groupedByTrainGradeName);
+    //배열 객체 순회하면서 각 배열의 adultCharge
+    //
+    // {ktx : { 59000, 0230}, 무궁화:{...}}으로 만들기
+    
+    //평균 비용 구하기. 
+    //for말고 reduc로 할까 생각중.
+    const averageEssentialTrainInfo = {};
+
+    for (const key in groupedByTrainGradeName) {
+        //adultCharge는 다 더해야 함.
+        const adultChargeSum = groupedByTrainGradeName[key].reduce((acc, cur) => {
+            acc += cur.adultCharge;
+            return acc;
+        }, 0);
+        const averageAdultCharge = adultChargeSum / groupedByTrainGradeName[key].length;
+        console.log('평균비용', averageAdultCharge);
+        //객체 배열에 넣기.
+        // averageEssentialTrainInfo.
+    }
+
+
+
+
+
 // 11. 소요시간 - 도착시간에서 출발시간을 뺀 뒤 평균 계산.  -> 다음날엔 00시인지 24시인지 확인해봐야 함.
 //11-1. 각 배열의 요소를 map해서 도착-출발시간해서 새로운 배열에 넣는다.
 //11-2. 그 배열을 또 map 돌려서 시간을 초로 계산한 값을 새로운 배열에 넣는다.
@@ -207,7 +253,3 @@ function fetchMapPointPosition ( destinationName ) {
     }
 
 }
-
-
-// fetchDestinationDetail(); //임시
-// fetchStationIdsFromCityCode(32);

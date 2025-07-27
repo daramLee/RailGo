@@ -26,7 +26,9 @@
     border-radius: 16px;
     background-color: #FFFFFF;
 }
-
+#x_button{
+    z-index: 1000;
+}
 #x_button_img{
     width: 14px;
     height: 14px;

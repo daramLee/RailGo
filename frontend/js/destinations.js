@@ -10,6 +10,8 @@ window.onload = async function(){
     const btnPageElements = document.getElementsByClassName('btn_page'); 
     // const btnDestinationNameElements = document.getElementsByClassName('btn_destination'); 
     const destinationListContainer = document.getElementById('destinations_container');
+    const xButton = document.getElementById('x_button');
+    const mapPinButton = document.getElementById('map_pin_button');
 
     console.log(destinationListContainer);
 
@@ -37,6 +39,15 @@ window.onload = async function(){
             showTrainDetailBox(destinationDetail);
         }
     });
+
+    mapPinButton.addEventListener('click', () => {
+        document.getElementById('train_detail_box').style.display = 'block';
+    });
+
+    xButton.addEventListener('click', () => {
+        document.getElementById('train_detail_box').style.display = 'none';
+    });
+
 }
 
 function renderSearchInput(searchInput){
@@ -119,13 +130,8 @@ function showTrainDetailBox ( destinationDetail ) {
     const rect = mapPin.getBoundingClientRect(); //뷰포트 기준으로 계산함.
     detailBox.style.position = 'absolute';
 
-
-    //ON! 상세정보 위치가 어정쩡함. 위치 고쳐야 함.
     detailBox.style.top = `${(rect.top + window.scrollY)- 120}px`;
     detailBox.style.left = `${(rect.left + window.scrollX) - 240}px`;
 
-    const detail = detailBox.getBoundingClientRect();
-
-    console.log(detail);
     console.log(rect);
 }
