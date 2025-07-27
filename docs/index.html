@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- GET favicon.ico에러 임시 해결책 -->
+    <link rel="shortcut icon" href="#"> 
+    <link rel="stylesheet" href="css/style.css" >
+    <link rel="stylesheet" href="css/reset.css" >
+    <link rel="stylesheet" href="css/global.css" >
+    <!-- import, export를 사용할 js는 type="module"지정 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="js/main.js"></script> 
+    <script type="module" src="js/api.js"></script>
+    <title>RailGo 기차로 떠나는 국내 여행</title>
+</head>
+<body>
+    <div id="header">
+        <div id="logo_wrap">
+            <a role="link" href="#">
+                <img id="logo" src="assets/image/logo.png" alt="로고">
+            </a>
+        </div>
+        <div id="menu_wrap">
+            <button id="btn_menu" role="button" aria-label="메뉴열기">
+                <img id="menu" src="assets/image/icon-menu.png" alt="메뉴버튼" >
+        </div>
+    </div>   
+    <div id="main">
+        <div id="title">기차로 떠나는 숨겨진 국내 여행지의 매력을 만나보세요</div>
+        <div id="searchbox_wrap">
+            <div id="searchbox_container">
+                <img id="icon_search" src="assets/image/icon-search.png" >
+                <input id="search_input" class="input" placeholder="출발역 이름을 검색하세요" type="text">
+                <!-- 검색어를 입력하면 취소버튼 나오게 수정해야함 -->
+                <!-- <img id="btnCancel" src="assets/image/icon-x.png" alt="취소버튼">  -->
+            </div>
+        </div>   
+        <div id="btn_down_wrap">
+            <img id="btn_down" src="assets/image/icon-down.png" alt="아래로 버튼">
+        </div> 
+        <div id="map_container">
+            <img id="map" src="assets/image/map.png" alt="지도">
+        </div>
+        <section id="recommend_spot">
+            <div class="section_heading">
+                <h2 class="section_heading_title">추천 여행지</h2>
+                <a role="link">
+                    <span>더보기></span>
+                </a>
+            </div>
+            <div class="swipper_container">
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-suwon-banghwa.png" alt="방화수류정">
+                        <div class="spot_info">
+                            <h3>방화수류정</h3>
+                            <p>경기도 수원시</p>
+                            <p>#야경 #데이트</p>
+                        </a>
+                </article>
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-pohang-kunlun.png" alt="방화수류정">
+                        <div class="spotInfo">
+                            <h3>곤륜산</h3>
+                            <p>경상북도 포항시</p>
+                            <p>#탁 트인 경치 #하이킹</p>
+                    </a>
+                </article>
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-namwon-guryong.png" alt="방화수류정">
+                        <div class="spotInfo">
+                            <h3>구룡폭포</h3>
+                            <p>전라북도 남원시</p>
+                            <p>#물놀이 #트레킹</p>
+                        </a>
+                    </article>
+                </div>
+                <article class="spot">
+                    <a role="link">
+                        <img src="assets/image/spot-jecheon-cheongpung.png" alt="방화수류정">
+                        <div class="spotInfo">
+                            <h3>청풍호 모노레일</h3>
+                            <p>충청북도 제천시</p>
+                            <p>#스릴 #아이와 함께</p>
+                    </a>
+                </article>
+            </section>
+    </div>
+    <div id="footer">
+        @Made by DaramLee
+    </div>
+    
+</body>
+</html>

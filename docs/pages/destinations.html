@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- GET favicon.ico에러 임시 해결책 -->
+    <link rel="shortcut icon" href="#"> 
+    <link rel="stylesheet" href="../css/reset.css" >
+    <link rel="stylesheet" href="../css/global.css" >
+    <link rel="stylesheet" href="../css/pages/destinations.css" >
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script type="module" src="../js/destinations.js"></script>
+    <title>??역 검색결과</title>
+</head>
+<body>
+    <div id="header">
+        <div id="logo_wrap">
+            <a role="link" href="#">
+                <img id="logo" src="../assets/image/logo.png" alt="로고">
+            </a>
+        </div>
+        <div id="searchbox_wrap">
+            <div id="searchbox_container">
+                <img id="icon_search" src="../assets/image/icon-search.png" >
+                <input id="search_input" class="input" placeholder="출발역 이름을 검색하세요" type="text">
+                <!-- 검색어를 입력하면 취소버튼 나오게 수정해야함 -->
+                <!-- <img id="btnCancel" src="assets/image/icon-x.png" alt="취소버튼">  -->
+            </div>
+        </div> 
+        <div id="menu_wrap">
+            <button id="btn_menu" role="button" aria-label="메뉴열기">
+                <img id="menu" src="../assets/image/icon-menu.png" alt="메뉴버튼" >
+        </div>
+    </div>   
+    <div id="main">
+        <div id="map_container">
+            <div id="map_wrap">
+                <img id="map" src="../assets/image/map.png" alt="지도">
+                <div id="map_pin_container">
+                    <button id="map_pin_button" role="button">
+                        <img id="map_pin_img" src="../assets/image/map-point.png" alt="맵핀 아이콘">
+                        <div id="map_pin_name"></div>
+                    </button>
+                </div>
+                <div id="train_detail_box">
+                    <div id="top_bar">
+                        <button id="x_button" role="button">
+                            <img id="x_button_img" src="../assets/image/icon-x.png" alt="x 버튼">
+                        </button>
+                    </div>
+                    <div id="detail_contents_container">
+
+                        <div id="train_type_container" class="detail_contents_item">
+                            <div class="detail_contents_img_wrap">
+                                <img id="train_type_img" class="detail_contents_img" src="../assets/image/train.png" alt="기차 아이콘">
+                            </div>
+                            <div id="train_type_label" class="detail_contents_label">기차</div>
+                            <div id="train_type">KTX</div>
+                        </div>
+
+                        <div id="average_time_container" class="detail_contents_item">
+                            <div class="detail_contents_img_wrap">
+                                <img id="average_time_img" class="detail_contents_img" src="../assets/image/hourglass.png" alt="모래시계 아이콘">
+                            </div>
+                            <div id="average_time_label" class="detail_contents_label">평균 소요 시간</div>
+                            <div id="average_time">2시간 30분</div>
+                        </div>
+
+                        <div id="average_cost_container" class="detail_contents_item">
+                            <div class="detail_contents_img_wrap">
+                                <img id="average_cost_img" class="detail_contents_img" src="../assets/image/dollar-circle.png" alt="달러 아이콘">
+                            </div>
+                            <div id="average_cost_label" class="detail_contents_label">평균 비용</div>
+                            <div id="average_cost">59,800원</div>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+            <div id="map_side_bar">
+                <div id="side_bar_title" class="map_side_bar_heading"></div>
+                <ul id="destinations_container"></ul>
+                <div id="btn_page_container"></div>
+            </div>
+        </div>
+    </div>
+    <div id="footer">
+        @Made by DaramLee
+    </div> 
+</body>
+</html>
