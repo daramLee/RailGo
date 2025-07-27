@@ -12,10 +12,22 @@ const serviceKey = process.env.SERVICE_KEY;
 let server = http.createServer(async function (request, response) {
     const protocol = request.headers['x-forwarded-proto'] || 'http';
     const url = new URL(request.url, `${protocol}://${request.headers.host}`);
-    
+
+    const allowedOrigins = [
+        'http://127.0.0.1:8080',
+        'http://localhost:8080',
+        'https://daramlee.github.io/RailGo'
+      ];
+
+    const origin = request.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        response.setHeader('Access-Control-Allow-Origin', origin);//CORS
+    }
+
     if (request.method === 'OPTIONS') {
         response.writeHead(204, {
-            'Access-Control-Allow-Origin': 'http://127.0.0.1:8080',
+            'Access-Control-Allow-Origin': origin,
             'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
             'Access-Control-Allow-Headers': 'Content-Type',
         });
@@ -25,7 +37,6 @@ let server = http.createServer(async function (request, response) {
 
     if (url.pathname == '/destinations') { 
         console.log("/destinations 진입 성공");
-        response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
 
         const departure = url.searchParams.get('departure');
         const destinations = await fetchDestinationNamesFromDB(departure);
@@ -37,7 +48,6 @@ let server = http.createServer(async function (request, response) {
 
     } else if (url.pathname == '/region') {
         console.log("1. /region 진입 성공");
-        response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
 
         const departure = url.searchParams.get('departure');
         const destination = url.searchParams.get('destination');
@@ -71,7 +81,6 @@ let server = http.createServer(async function (request, response) {
 
     } else if (request.method == 'POST' && url.pathname == '/destinations/position') {
         console.log('destinations/position 진입 성공');
-        response.setHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');//CORS
 
         let body = '';
         request.on('data', chunk => {
