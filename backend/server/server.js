@@ -1,7 +1,7 @@
 import axios from 'axios';
 // import axios from '../../node_modules/axios/dist/axios.min.js';
 import http from 'http';
-import { fetchDestinationNamesFromDB } from '../database/fetchDestinationNamesfromDB.js';
+import { fetchDestinationNamesFromDB } from '../database/fetchDestinationNamesFromDB.js';
 import { fetchStationRegionFromDB } from '../database/fetchStationRegionFromDB.js';
 import dotenv from 'dotenv';
 
