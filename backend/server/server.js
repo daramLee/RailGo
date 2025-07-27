@@ -9,9 +9,10 @@ dotenv.config();
 const serviceKey = process.env.SERVICE_KEY;
 
 
-let server = http.createServer(async function(request, response){
-    const url = new URL(request.url, `http://${request.headers.host}`);
-
+let server = http.createServer(async function (request, response) {
+    const protocol = request.headers['x-forwarded-proto'] || 'http';
+    const url = new URL(request.url, `${protocol}://${request.headers.host}`);
+    
     if (request.method === 'OPTIONS') {
         response.writeHead(204, {
             'Access-Control-Allow-Origin': 'http://127.0.0.1:8080',
