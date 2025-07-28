@@ -103,9 +103,11 @@ let server = http.createServer(async function (request, response) {
     //아직 server.close() 안함.
 })
 
-server.listen(8080, function () { 
-    console.log('Server is running...');
+const PORT = process.env.URL || 8080;
+server.listen(PORT, function () { 
+    console.log(`Server is running on ${PORT}`);
 });
+
 //http://localhost:8080
 
 //호출되는 메소드들
